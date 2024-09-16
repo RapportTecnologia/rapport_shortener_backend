@@ -1,6 +1,6 @@
 {
   "name": "rapport-shortener-backend",
-  "version": "0.0.1-b",
+  "version": "0.0.1",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -26,8 +26,8 @@
     "typescript": "^5.6.2"
   },
   "description": "Backend de um encurtador de URL para uso no Rapport-Bot",
-  "private": false ,
-  "repository": { 
+  "private": false,
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/rapporttecnologia/rapport-shortener-backend.git",
     "directory": "backend",
