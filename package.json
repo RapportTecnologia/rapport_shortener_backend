@@ -1,6 +1,6 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
+  "name": "rapport-shortener-backend",
+  "version": "0.0.1-b",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -8,7 +8,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "GPL-3.0-or-later",
   "dependencies": {
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
@@ -18,11 +18,26 @@
     "sequelize": "^6.37.3"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^22.5.5",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.6.2"
   },
-  "description": ""
+  "description": "Backend de um encurtador de URL para uso no Rapport-Bot",
+  "private": false ,
+  "repository": { 
+    "type": "git",
+    "url": "git+https://github.com/rapporttecnologia/rapport-shortener-backend.git",
+    "directory": "backend",
+    "ref": "main"
+  },
+  "bugs": {
+    "url": "https://github.com/rapporttecnologia/rapport-shortener-backend/issues"
+  },
+  "homepage": "https://github.com/rapporttecnologia/rapport-shortener-backend#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -56,23 +56,7 @@ export class UrlShortenerService {
     return shortenedUrl;
   }
 
-  async getStatsForShortUrl(hash: string): Promise<any> {
-    const shortenedUrl = await this.urlRepository.findByHash(hash);
-
-    if (!shortenedUrl) {
-      throw new Error('URL encurtada não encontrada.');
-    }
-
-    const stats = await this.statsRepository.findByShortUrlId(shortenedUrl.id!);
-    return {
-      url: shortenedUrl.original_url,
-      totalAccesses: stats.length,
-      accesses: stats.map(stat => ({
-        accessed_at: stat.accessed_at,
-        request_ip: stat.request_ip
-      })),
-    };
-  }
+  
 
   // Método para buscar todas as URLs encurtadas
   async findAllUrls(): Promise<ShortenedURL[]> {
