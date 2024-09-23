@@ -6,6 +6,9 @@ export class ShortenerStatsModel extends Model {
   public short_url_id!: number;
   public accessed_at!: Date;
   public request_ip!: string;
+  public browser_name!: string;
+  public platform!: string;
+  public machine_data!: string;
 }
 
 ShortenerStatsModel.init({
@@ -13,6 +16,9 @@ ShortenerStatsModel.init({
   short_url_id: { type: DataTypes.INTEGER, allowNull: false },
   accessed_at: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
   request_ip: { type: DataTypes.STRING, allowNull: false },
+  browser_name: { type: DataTypes.STRING, allowNull: false},
+  platform:  { type: DataTypes.STRING, allowNull: false},
+  machine_data:  { type: DataTypes.STRING, allowNull: false},
 }, {
   sequelize,
   tableName: 'sites_shortener_stats',
@@ -20,11 +26,12 @@ ShortenerStatsModel.init({
 });
 
 export class ShortenerStatsRepository {
-  async save(short_url_id: number, request_ip: string): Promise<void> {
+  async save(short_url_id: number, request_ip: string, browser_name: string, platform: string, machine_data: string): Promise<void> {
     try {
       await ShortenerStatsModel.create({
         short_url_id,
         request_ip,
+        browser_name, platform, machine_data
       });
       console.log('Estatísticas de acesso gravadas com sucesso.');
     } catch (error) {

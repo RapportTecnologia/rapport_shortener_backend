@@ -11,6 +11,7 @@ app.use(cors()); // Usar o cors
 
 const controller = new UrlShortenerController();
 
+app.post('/authUser', (req, res) => controller.authUser(req,res));
 app.post('/shorten', (req, res) => controller.shorten(req, res));
 app.get('/stats/:shortId', (req, res) => controller.getStats(req, res));
 app.get('/urls', (req, res) => controller.getAllUrls(req, res));
