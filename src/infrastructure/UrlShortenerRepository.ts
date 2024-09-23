@@ -1,4 +1,4 @@
-import { UrlShortenerModel } from './UrlShortenerModel';
+import { UrlShortenerModel } from '../domain/UrlShortener';
 import { ShortenedURL } from '../domain/ShortenedURL';
 
 export class UrlShortenerRepository {

@@ -1,9 +1,9 @@
-import ContactModel from '../models/Contact';
+import ContactModel from '../domain/Contact';
 
   export class OwnerRepository{
 
     async findByWhatsapp(whatsapp: string): Promise<ContactModel | null> {
-        console.log(`Buscando site pelo URL: ${whatsapp}`);
+        console.log(`Buscando owner pelo URL: ${whatsapp}`);
         const owner = await ContactModel.findOne({ where: { contact: whatsapp } });
     
         if (owner) {

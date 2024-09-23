@@ -37,6 +37,7 @@ ContactModel.init(
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
+      field: 'created_at'
     },
   },
   {

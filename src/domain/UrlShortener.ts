@@ -1,4 +1,4 @@
-import { sequelize } from './database';
+import { sequelize } from '../infrastructure/database';
 import { DataTypes, Model, Optional } from 'sequelize';
 
 // Definir os atributos que correspondem à tabela do banco de dados

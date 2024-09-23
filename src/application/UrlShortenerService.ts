@@ -4,8 +4,8 @@ import { UrlShortenerRepository } from '../infrastructure/UrlShortenerRepository
 import { OwnerRepository } from '../infrastructure/OwnerRepository';
 import { SiteRepository } from '../infrastructure/SiteRepository';
 import { ShortenerStatsRepository } from '../infrastructure/ShortenerStatsRepository';
-import ContactModel from '../models/Contact';
-import ContanctLoginModel from '../models/Login';
+import ContactModel from '../domain/Contact';
+import ContanctLoginModel from '../domain/Login';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -44,7 +44,7 @@ export class UrlShortenerService {
 
     if (!site) {
       // Se o site não estiver registrado, insere na tabela `sites`
-      site = await this.siteRepository.create(fullDomain, domain);
+      site = await this.siteRepository.create({url: fullDomain, name: domain, ownerContact: user.whatsapp});
     }
 
     const shortId = ShortenedURL.generateShortId(); // Gerar o hash/ID encurtado

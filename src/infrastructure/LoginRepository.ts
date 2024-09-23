@@ -1,5 +1,5 @@
-import ContactLoginModel from '../models/Login';
-import ContactModel from '../models/Contanct';
+import ContactLoginModel from '../domain/Login';
+import ContactModel from '../domain/Contact';
 
 export class LoginRepository {
 
@@ -8,7 +8,7 @@ export class LoginRepository {
     const userLogin = await ContactLoginModel.findOne({ where: { login } });
 
     if (userLogin) {
-      console.log(`Site encontrado: ${userLogin.id} - ${userLogin.username}`);
+      console.log(`Site encontrado: ${userLogin.contactId} - ${userLogin.username}`);
     } else {
       console.log(`Site não encontrado, será criado.`);
     }
@@ -20,7 +20,7 @@ export class LoginRepository {
     console.log(`Criando novo login: ${login} - ${password}`);
     try {
       const userLogin = await ContactLoginModel.create({ login, password });
-      console.log(`Novo login criado com sucesso: ${userLogin.id}`);
+      console.log(`Novo login criado com sucesso: ${userLogin.contactId}`);
       return userLogin;
     } catch (error) {
       console.error('Erro ao criar o site:', error);
