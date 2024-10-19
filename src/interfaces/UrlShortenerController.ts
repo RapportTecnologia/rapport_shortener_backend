@@ -1,17 +1,8 @@
 import { Request, Response } from 'express';
 import { UrlShortenerService } from '../application/UrlShortenerService';
-import { OwnerRepository } from '../infrastructure/OwnerRepository';
-import { UrlShortenerRepository } from '../infrastructure/UrlShortenerRepository';
-import { SiteRepository } from '../infrastructure/SiteRepository';
-import { ShortenerStatsRepository } from '../infrastructure/ShortenerStatsRepository';
-import { LoginRepository } from '../infrastructure/LoginRepository';
+import ContactModel from '../domain/Contact';
 
-const loginRepository = new LoginRepository();
-const urlRepository = new UrlShortenerRepository();
-const ownerRepository = new OwnerRepository();
-const siteRepository = new SiteRepository();
-const statsRepository = new ShortenerStatsRepository();
-const service = new UrlShortenerService(loginRepository, urlRepository, ownerRepository, siteRepository, statsRepository);
+const service = UrlShortenerService.createUrlShortenerService();
 
 export class UrlShortenerController {
   async authUser(req: Request, res: Response) {
@@ -37,7 +28,7 @@ export class UrlShortenerController {
         //@ts-ignore
         name: contactLogin.ContactModel.name,
         //@ts-ignore
-        whatsapp: contactLogin.ContactModel.contact,
+        contact: contactLogin.ContactModel.contact,
         //@ts-ignore
         email: contactLogin.ContactModel.email,
       };
@@ -52,7 +43,7 @@ export class UrlShortenerController {
     console.log(`Recebida requisição para encurtar URL: ${req.body.url}`);
     try {
       const hash = await service.shortenUrl(req.body.url,
-        { name: req.body.name, email: req.body.email, whatsapp: req.body.whatsapp });
+        { name: req.body.name, email: req.body.email, contact: req.body.contact } as ContactModel);
       const shortUrl = `${process.env.BASE_URL || 'http://localhost:3000'}/${hash}`; // Construir a URL completa
       res.json({ shortUrl });
     } catch (error) {
@@ -80,8 +71,8 @@ export class UrlShortenerController {
       const originalUrl = await service.getOriginalUrl(shortUrl, requestIp as string, userAgent, browserName, platform, machineData); // Passa o IP para registro
 
       if (originalUrl) {
-        console.log(`Redirecionando para URL original: ${originalUrl.original_url}`);
-        res.redirect(originalUrl.original_url);
+        console.log(`Redirecionando para URL original: ${originalUrl.originalUrl}`);
+        res.redirect(originalUrl.originalUrl);
       } else {
         console.log(`ShortUrl não encontrada: ${shortUrl}`);
         res.status(404).send('URL não encontrada');
@@ -97,7 +88,7 @@ export class UrlShortenerController {
       const hash = req.params.shortId;
       const stats = await service.getStatsForShortUrl(hash);
       const originalURL = await service.getOriginalUrl(hash);
-      stats.originalURL = originalURL?.original_url;
+      stats.originalURL = originalURL?.originalUrl;
       res.json(stats);
     } catch (error) {
       console.error('Erro ao buscar estatísticas:', error);

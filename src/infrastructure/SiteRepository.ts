@@ -24,7 +24,7 @@ export class SiteRepository {
       if (!owner) {
         throw new Error(`Owner com o contato ${siteData.ownerContact} não encontrado.`);
       }
-
+      console.log(`Usando Owner: ${JSON.stringify(owner)}`)
       // Verificar se o site já existe
       const existingSite = await SiteModel.findOne({ where: { url: siteData.url } });
       if (existingSite) {
@@ -35,7 +35,7 @@ export class SiteRepository {
       const newSite = await SiteModel.create({
         name: siteData.name,
         url: siteData.url,
-        contact_id: owner.id, // Adicionando o contact_id corretamente
+        contactId: owner.id, // Adicionando o contact_id corretamente
       });
 
       return newSite;

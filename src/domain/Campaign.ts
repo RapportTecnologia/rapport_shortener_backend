@@ -1,42 +1,35 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../infrastructure/database';
+import ContactModel from './Contact';
 
-class ContactModel extends Model {
+class CampaingModel extends Model {
   public id!: number;
-  public contact!: string;
   public name!: string;
-  public type!: 'whatsapp_user' | 'whatsapp_group' | 'telgram_group' | 'telegram_user';
-  public origem!: string;
   public description!: string;
-  public email!: string;
+  public contatctId!: number;
   public createdAt!: Date;
 }
 
-ContactModel.init(
+CampaingModel.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true,
     },
-    contact: {
-      type: DataTypes.STRING(45),
-      unique: true,
-    },
     name: {
-      type: DataTypes.STRING(255),
-    },
-    type: {
-      type: DataTypes.ENUM('whatsapp_user', 'whatsapp_group', 'telgram_group', 'telegram_user'),
-    },
-    origem: {
       type: DataTypes.STRING(255),
     },
     description: {
       type: DataTypes.STRING(512),
     },
-    email: {
-      type: DataTypes.STRING(120),
+    contactId: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: ContactModel, // refere-se ao modelo Contact
+        key: 'id',
+      },
+      field: 'contact_id'
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -46,7 +39,7 @@ ContactModel.init(
   },
   {
     sequelize,
-    tableName: 'contacts',
+    tableName: 'campaigns',
     timestamps: false,
   }
 );
